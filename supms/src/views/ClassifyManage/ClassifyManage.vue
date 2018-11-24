@@ -5,16 +5,13 @@
         <!-- 身体 -->
         <el-main>
             <el-card class="box-card">
-                <el-table ref="multipleTable" :data="tableData" tooltip-effect="dark" style="width: 100%" @selection-change="handleSelectionChange">
+                <el-table ref="multipleTable" :data="classData" tooltip-effect="dark" style="width: 100%" @selection-change="handleSelectionChange">
                     <el-table-column type="selection" width="55">
                     </el-table-column>
                     <!-- 用户名 -->
-                    <el-table-column prop="username" label="用户名">
+                    <el-table-column prop="username" label="分类名称">
                     </el-table-column>
-                    <!-- 用户组 -->
-                    <el-table-column prop="usergroup" label="用户组" show-overflow-tooltip>
-                    </el-table-column>
-
+                    <!-- 创建日期 -->
                     <el-table-column label="日期">
                         <template slot-scope="scope">{{ scope.row.cdate|getCdate }}</template>
                     </el-table-column>
@@ -33,35 +30,23 @@
         <Footer></Footer>
     </div>
 </template>
+
 <script>
 // 引入头部组件
 import Header from "@/components/Header/Header.vue";
 // 引入脚部组件
 import Footer from "@/components/Footer/Footer.vue";
 
-// 引入moment模块
-import moment from "moment";
-
-// VUE实例对象
 export default {
   components: {
     Header,
     Footer
   },
   data() {
-    //
     return {
-      tableData: [],
+      classData: [],
       multipleSelection: []
     };
-  },
-  created() {
-    this.getUserdata();
-  },
-  filters: {
-    getCdate(value) {
-      return moment(value).format("YYYY-MM-DD HH:mm:ss");
-    }
   },
   methods: {
     // 修改数据函数
@@ -80,7 +65,6 @@ export default {
               type: "success"
             });
             this.getUserdata();
-            
           } else {
             this.$message({
               showClose: true,
@@ -118,5 +102,3 @@ export default {
 
 <style lang="less">
 </style>
-
-

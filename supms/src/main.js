@@ -10,9 +10,13 @@ import '@/common/css/base.css'
 // 引入顶级组件 App
 import App from './App.vue'
 
+// 引入axios
+import axios from 'axios'
+
 // 引入路由
 import router from './router'
-
+// 讲axios挂在vue原型上
+Vue.prototype.axios = axios;
 // 注册elementui
 Vue.use(ElementUI)
 // 阻止生产提示
@@ -21,5 +25,6 @@ Vue.config.productionTip = false
 // 创建Vue实例 挂在dom
 new Vue({
   router,
+
   render: h => h(App)
 }).$mount('#app')

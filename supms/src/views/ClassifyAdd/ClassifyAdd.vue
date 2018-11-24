@@ -1,5 +1,5 @@
 <template>
-    <div class="goods-add">
+    <div class="classify-add">
         <!-- 头部 -->
         <Header></Header>
         <!-- 身体 -->
@@ -16,37 +16,12 @@
                             <el-option label="---顶级分类---" value="顶级分类"></el-option>
                         </el-select>
                     </el-form-item>
-                    <el-form-item label="商品条形码" prop="barcode">
-                        <el-input type="text" v-model="classifyform.barcode" autocomplete="off"></el-input>
+                    <el-form-item label="分类名称" prop="classname">
+                        <el-input type="text" v-model="classifyform.classname" autocomplete="off"></el-input>
                     </el-form-item>
-                    <el-form-item label="商品名称" prop="commodityname">
-                        <el-input type="text" v-model="classifyform.commodityname" autocomplete="off"></el-input>
-                    </el-form-item>
-                    <el-form-item label="商品售价" prop="commodityprice">
-                        <el-input type="text" v-model="classifyform.commodityprice" autocomplete="off"></el-input>
-                    </el-form-item>
-                    <el-form-item label="市场价" prop="marketprice">
-                        <el-input type="text" v-model="classifyform.marketprice" autocomplete="off"></el-input>
-                    </el-form-item>
-                    <el-form-item label="商品进价" prop="purchaseprice">
-                        <el-input type="text" v-model="classifyform.purchaseprice" autocomplete="off"></el-input>
-                    </el-form-item>
-                    <el-form-item label="入库数量" prop="Inventoryquantity">
-                        <el-input type="text" v-model="classifyform.Inventoryquantity" autocomplete="off"></el-input>
-                    </el-form-item>
-                    <el-form-item label="商品数量" prop="commodityquantity">
-                        <el-input type="text" v-model="classifyform.commodityquantity" autocomplete="off"></el-input>
-                    </el-form-item>
-                    <el-form-item label="商品单位" prop="unit">
-                        <el-input type="text" v-model="classifyform.unit" autocomplete="off"></el-input>
-                    </el-form-item>
-                    <el-form-item label="会员优惠" prop="discount">
-                        <el-radio v-model="classifyform.discount" label="1">享受</el-radio>
-                        <el-radio v-model="classifyform.discount" label="2">不享受</el-radio>
-                    </el-form-item>
-                    <el-form-item label="是否促销" prop="promotion">
-                        <el-radio v-model="classifyform.promotion" label="1">启用</el-radio>
-                        <el-radio v-model="classifyform.promotion" label="2">禁用</el-radio>
+                    <el-form-item label="状态" prop="statestr">
+                        <el-radio v-model="classifyform.statestr" label="1">启用</el-radio>
+                        <el-radio v-model="classifyform.statestr" label="2">禁用</el-radio>
                     </el-form-item>
                     <el-form-item>
                         <el-button type="primary" @click="submitForm('classifyform')">添加</el-button>
@@ -84,16 +59,9 @@ export default {
     return {
       // 表单内数据
       classifyform: {
-        barcode:"",
-        commodityname: "",
+        classname: "",
         classgroup: "",
-        statestr: "",
-        commodityprice:"",
-        marketprice:"",
-        purchaseprice:"",
-        unit:"",
-        discount:"",
-        promotion:""
+        statestr: ""
       },
       rules1: {
         classname: [
@@ -103,9 +71,7 @@ export default {
         classgroup: [
           { required: true, message: "请选择分类", trigger: "change" }
         ],
-        statestr: [{ required: true, message: "请选择状态", trigger: "change" }],
-        
-
+        statestr: [{ required: true, message: "请选择状态", trigger: "change" }]
       }
     };
   },
@@ -125,7 +91,7 @@ export default {
 };
 </script>
 <style lang="less">
-.goods-add {
+.classify-add {
   width: 100%;
   display: flex;
   flex-direction: column;
@@ -156,6 +122,3 @@ export default {
   }
 }
 </style>
-
-
-

@@ -22,6 +22,16 @@ import UserAdd from '@/views/UserAdd/UserAdd.vue'
 // 用户管理
 import UserManage from '@/views/UserManage/UserManage.vue'
 
+// 分类管理
+import ClassifyManage from '@/views/ClassifyManage/ClassifyManage.vue'
+// 分类添加
+import ClassifyAdd from '@/views/ClassifyAdd/ClassifyAdd.vue'
+
+// 库存管理
+import StockManage from '@/views/StockManage/StockManage.vue'
+// 添加库存
+import StockAdd from '@/views/StockAdd/StockAdd.vue'
+
 // 注册路由
 Vue.use(Router)
 
@@ -80,6 +90,29 @@ export default new Router({
           path: '/salescharts',
           component: SalesCharts
         },
+        // 分类管理
+        {
+          name: 'classifymanage',
+          path: '/classifymanage',
+          component: ClassifyManage
+        },
+        //添加分类
+        {
+          name: 'classifyadd',
+          path: '/classifyadd',
+          component: ClassifyAdd
+        },
+        //库存管理
+        {
+          name: 'stockmanage',
+          path: '/stockmanage',
+          component: StockManage
+        },
+        {
+          name: 'stockadd',
+          path: '/stockadd',
+          component: StockAdd
+        }
         
       ]
     }

@@ -9,17 +9,27 @@
                 <el-menu-item index="/"><i class="el-icon-caret-right"></i>系统信息</el-menu-item>
             </el-submenu>
             <el-submenu index="2">
+                <template slot="title"><i class="el-icon-location"></i>分类管理</template>
+                <el-menu-item index="/classifymanage"><i class="el-icon-caret-right"></i>分类管理</el-menu-item>
+                <el-menu-item index="/classifyadd"><i class="el-icon-caret-right"></i>添加分类</el-menu-item>
+            </el-submenu>
+            <el-submenu index="3">
                 <template slot="title"><i class="el-icon-location"></i>账号管理</template>
                 <el-menu-item index="/usermanage"><i class="el-icon-caret-right"></i>账号管理</el-menu-item>
                 <el-menu-item index="/useradd"><i class="el-icon-caret-right"></i>添加账号</el-menu-item>
                 <el-menu-item index="/editpassword"><i class="el-icon-caret-right"></i>密码修改</el-menu-item>
             </el-submenu>
-            <el-submenu index="3">
+            <el-submenu index="4">
                 <template slot="title"><i class="el-icon-location"></i>商品管理</template>
                 <el-menu-item index="/goodsmanage"><i class="el-icon-caret-right"></i>商品管理</el-menu-item>
                 <el-menu-item index="/goodsadd"><i class="el-icon-caret-right"></i>添加商品</el-menu-item>
             </el-submenu>
-            <el-submenu index="4">
+            <el-submenu index="5">
+                <template slot="title"><i class="el-icon-location"></i>进货管理</template>
+                <el-menu-item index="/stockmanage"><i class="el-icon-caret-right"></i>库存管理</el-menu-item>
+                <el-menu-item index="/stockadd"><i class="el-icon-caret-right"></i>添加库存</el-menu-item>
+            </el-submenu>
+            <el-submenu index="6">
                 <template slot="title"><i class="el-icon-location"></i>统计管理</template>
                 <el-menu-item index="/salescharts"><i class="el-icon-caret-right"></i>销售统计</el-menu-item>
             </el-submenu>

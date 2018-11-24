@@ -12,6 +12,7 @@ export default {
 
 <style lang="less">
     .footer{
+        text-align: center;
         height: 60px;
         line-height: 60px;
         border-top: 1px solid rgba(0, 0, 0, 0.1);

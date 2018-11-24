@@ -1,5 +1,5 @@
 <template>
-    <div class="home">
+    <div class="stock-add">
         <!-- 头部 -->
         <Header></Header>
         <!-- 身体 -->
@@ -132,9 +132,8 @@ export default {
 
 }
 </script>
-
 <style lang="less">
-    .home{
+    .classify-add{
        width: 100%;
        display: flex;
        flex-direction: column;
