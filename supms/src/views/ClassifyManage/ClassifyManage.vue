@@ -1,34 +1,36 @@
 <template>
-    <div class="UserAdd">
-        <!-- 头部 -->
-        <Header></Header>
-        <!-- 身体 -->
-        <el-main>
-            <el-card class="box-card">
-                <el-table ref="multipleTable" :data="classData" tooltip-effect="dark" style="width: 100%" @selection-change="handleSelectionChange">
-                    <el-table-column type="selection" width="55">
-                    </el-table-column>
-                    <!-- 用户名 -->
-                    <el-table-column prop="username" label="分类名称">
-                    </el-table-column>
-                    <!-- 创建日期 -->
-                    <el-table-column label="日期">
-                        <template slot-scope="scope">{{ scope.row.cdate|getCdate }}</template>
-                    </el-table-column>
-                    <el-table-column label="管理">
-                        <template slot-scope="scope">
-                            <el-button size="mini" type="primary" @click="handleEdit(scope.row.id)">
-                                <i class="el-icon-edit"></i>修改</el-button>
-                            <el-button size="mini" type="danger" @click="handleDelete(scope.row.id)">
-                                <i class="el-icon-delete"></i>删除</el-button>
-                        </template>
-                    </el-table-column>
-                </el-table>
-            </el-card>
-        </el-main>
-        <!-- 脚部 -->
-        <Footer></Footer>
-    </div>
+  <div class="UserAdd">
+    <!-- 头部 -->
+    <Header></Header>
+    <!-- 身体 -->
+    <el-main>
+      <el-card class="box-card">
+        <el-table ref="multipleTable" :data="classData" tooltip-effect="dark" style="width: 100%" @selection-change="handleSelectionChange">
+          <el-table-column type="selection" width="55">
+          </el-table-column>
+          <!-- 用户名 -->
+          <el-table-column prop="username" label="分类名称">
+          </el-table-column>
+          <!-- 创建日期 -->
+          <el-table-column label="日期">
+            <template slot-scope="scope">{{ scope.row.cdate|getCdate }}</template>
+          </el-table-column>
+          <el-table-column label="管理">
+            <template slot-scope="scope">
+              <el-button size="mini" type="primary" @click="handleEdit(scope.row.id)">
+                <i class="el-icon-edit"></i>修改</el-button>
+              <el-button size="mini" type="danger" @click="handleDelete(scope.row.id)">
+                <i class="el-icon-delete"></i>删除</el-button>
+            </template>
+          </el-table-column>
+        </el-table>
+
+        
+      </el-card>
+    </el-main>
+    <!-- 脚部 -->
+    <Footer></Footer>
+  </div>
 </template>
 
 <script>
@@ -51,7 +53,7 @@ export default {
   methods: {
     // 修改数据函数
     handleEdit(id) {
-      console.log("修改数据");
+      console.log(id)
     },
     // 删除数据函数
     handleDelete(id) {

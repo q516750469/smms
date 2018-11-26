@@ -102,7 +102,7 @@ export default {
           };
           this.axios.post("http://127.0.0.1:3000/users/adduser",
             qs.stringify(params), //用qs模块转化params数据对象
-            {"hearder":{"Content-Type":"application/x-www-form-urlencoded"} //设置请求头
+            { Header:{"Content-Type":"application/x-www-form-urlencoded"} //设置请求头
           })
           .then(response => {
               if(response.data.rstCode === 1){
