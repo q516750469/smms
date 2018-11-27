@@ -11,31 +11,31 @@
                 <el-form :model="classifyform" status-icon :rules="rules1" ref="classifyform" label-width="100px" class="demo-ruleForm">
                     <!-- 表单 -->
                     <el-form-item label="所属分类" prop="classgroup">
-                        <el-select v-model="classifyform.classgroup" placeholder="---顶级分类---">
+                        <el-select v-model="classifyform.classgroup" placeholder="---请选择分类---">
                             <el-option label="---顶级分类---" value="顶级分类"></el-option>
-                            <el-option label="---顶级分类---" value="顶级分类"></el-option>
+                            <el-option label="---顶级分类---" value="低级分类"></el-option>
                         </el-select>
                     </el-form-item>
                     <el-form-item label="商品条形码" prop="barcode">
                         <el-input type="text" v-model="classifyform.barcode" autocomplete="off"></el-input>
                     </el-form-item>
-                    <el-form-item label="商品名称" prop="commodityname">
-                        <el-input type="text" v-model="classifyform.commodityname" autocomplete="off"></el-input>
+                    <el-form-item label="商品名称" prop="goodsName">
+                        <el-input type="text" v-model="classifyform.goodsName" autocomplete="off"></el-input>
                     </el-form-item>
-                    <el-form-item label="商品售价" prop="commodityprice">
-                        <el-input type="text" v-model="classifyform.commodityprice" autocomplete="off"></el-input>
+                    <el-form-item label="商品售价" prop="salePrice">
+                        <el-input type="text" v-model="classifyform.salePrice" autocomplete="off"></el-input>
                     </el-form-item>
                     <el-form-item label="市场价" prop="marketprice">
                         <el-input type="text" v-model="classifyform.marketprice" autocomplete="off"></el-input>
                     </el-form-item>
-                    <el-form-item label="商品进价" prop="purchaseprice">
-                        <el-input type="text" v-model="classifyform.purchaseprice" autocomplete="off"></el-input>
+                    <el-form-item label="商品进价" prop="costPrice">
+                        <el-input type="text" v-model="classifyform.costPrice" autocomplete="off"></el-input>
                     </el-form-item>
                     <el-form-item label="入库数量" prop="Inventoryquantity">
                         <el-input type="text" v-model="classifyform.Inventoryquantity" autocomplete="off"></el-input>
                     </el-form-item>
-                    <el-form-item label="商品数量" prop="commodityquantity">
-                        <el-input type="text" v-model="classifyform.commodityquantity" autocomplete="off"></el-input>
+                    <el-form-item label="商品数量" prop="goodsNum">
+                        <el-input type="text" v-model="classifyform.goodsNum" autocomplete="off"></el-input>
                     </el-form-item>
                     <el-form-item label="商品单位" prop="unit">
                         <el-input type="text" v-model="classifyform.unit" autocomplete="off"></el-input>
@@ -47,6 +47,9 @@
                     <el-form-item label="是否促销" prop="promotion">
                         <el-radio v-model="classifyform.promotion" label="1">启用</el-radio>
                         <el-radio v-model="classifyform.promotion" label="2">禁用</el-radio>
+                    </el-form-item>
+                    <el-form-item label="商品简介">
+                      <el-input type="textarea" v-model="classifyform.desc"></el-input>
                     </el-form-item>
                     <el-form-item>
                         <el-button type="primary" @click="submitForm('classifyform')">添加</el-button>
@@ -85,20 +88,27 @@ export default {
       // 表单内数据
       classifyform: {
         barcode:"",
-        commodityname: "",
+        goodsName: "",
         classgroup: "",
         statestr: "",
-        commodityprice:"",
+        goodsNum:"",
+        salePrice:"",
         marketprice:"",
-        purchaseprice:"",
+        costPrice:"",
         unit:"",
         discount:"",
-        promotion:""
+        promotion:"",
+        desc:""
       },
       rules1: {
-        classname: [
-          { required: true, message: "请输入分类名", trigger: "blur" },
-          { min: 3, max: 6, message: "长度在 3 到 6 个字符", trigger: "blur" }
+        barcode: [
+          { required: true, message: "请输入条形码", trigger: "blur" },
+        ],
+        goodsName: [
+          { required: true, message: "请输入商品名称", trigger: "blur" },
+        ],
+        salePrice: [
+          { required: true, message: "请输入商品售价", trigger: "blur" },
         ],
         classgroup: [
           { required: true, message: "请选择分类", trigger: "change" }
@@ -145,7 +155,11 @@ export default {
           .el-form-item__content {
             height: 30px;
             line-height: 30px;
-            .el-input__inner {
+            textarea{
+              width:500px;
+              height: 60px;
+            }
+            .el-input__inner{
               height: 30px;
               line-height: 30px;
             }

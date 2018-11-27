@@ -27,10 +27,22 @@
             </template>
           </el-table-column>
         </el-table>
+        <el-pagination
+          @size-change="handleSizeChange"
+          @current-change="handleCurrentChange"
+          :current-page="currentPage"
+          :page-sizes="[3, 5, 7, 10]"
+          :page-size="pageSize"
+          layout="total, sizes, prev, pager, next, jumper"
+          :total="totalpage">
+        </el-pagination>
+
         <div style="margin-top: 20px">
           <el-button @click="BatchDel" type="danger">批量删除</el-button>
           <el-button @click="toggleSelection">取消选择</el-button>
         </div>
+
+
         <!-- 弹出框 -->
         <el-dialog title="修改账号" :visible.sync="dialogFormVisible" width="40%">
           <el-form :model="editform" status-icon :rules="rules1" ref="editform" label-width="100px" class="demo-ruleForm">
@@ -47,6 +59,8 @@
               </el-select>
             </el-form-item>
           </el-form>
+          
+          
           <div slot="footer" class="dialog-footer">
             <el-button @click="dialogFormVisible = false">取 消</el-button>
             <el-button type="primary" @click="submitForm('editform')">确 定</el-button>
@@ -79,10 +93,14 @@ export default {
   data() {
     //
     return {
+      totalpage:7,
       tableData: [],
       selectedUser: [],
       editId: "",
       dialogFormVisible: false,
+      currentPage: 1,
+      pageSize:5,
+
       editform: {
         username: "",
         password: "",
@@ -106,7 +124,7 @@ export default {
     };
   },
   created() {
-    this.getUserdata();
+    this.gituserpagedata();
   },
   filters: {
     getCdate(value) {
@@ -114,6 +132,14 @@ export default {
     }
   },
   methods: {
+    handleSizeChange(val) {
+      this.pageSize = val
+      this.gituserpagedata();
+    },
+    handleCurrentChange(val) {
+      this.currentPage = val
+      this.gituserpagedata();
+    },
     // 修改数据函数(数据回显)
     handleEdit(id) {
       this.editId = id;
@@ -138,7 +164,7 @@ export default {
               message: response.data.msg,
               type: "success"
             });
-            this.getUserdata();
+            this.gituserpagedata();
           } else {
             this.$message({
               showClose: true,
@@ -150,11 +176,28 @@ export default {
     },
 
     // 获取全部数据的axios函数
-    getUserdata() {
+    gituserpagedata() {
+      let pagedata = {
+          currentPage:this.currentPage,
+          pageSize:this.pageSize
+      }
       this.axios
-        .post("http://127.0.0.1:3000/users/usermanage")
+        .post("http://127.0.0.1:3000/users/usermanagebypage",
+        qs.stringify(pagedata),
+        {Header : {"Content-Type":"application/x-www-form-urlencoded"}}
+        )
         .then(response => {
-          this.tableData = response.data;
+          // 把每页显示的数据赋值
+          this.tableData = response.data.data;
+          // 给总条数复制
+          this.totalpage = response.data.totalpage;
+          // 判断如果数据条数不存在且当前页数不是第一页时
+          if(!response.data.data.length && this.currentPage !== 1){
+            // 当前页面-1
+            this.currentPage -= 1
+            // 调用自身
+            this.gituserpagedata()
+          }
         });
     },
 
@@ -198,7 +241,7 @@ export default {
                   message: response.data.msg
                 });
               }
-              this.getUserdata();
+              this.gituserpagedata();
               this.dialogFormVisible = false;
             });
         } else {
@@ -225,17 +268,18 @@ export default {
       let selectId = {
         idArr: JSON.stringify(idArr) // 把数组对象转为字符串
       };
-      this.axios.post("http://127.0.0.1:3000/users/batchdel", 
-        qs.stringify(selectId), 
-        { Header: { 'Content-Type': 'application/x-www-form-urlencoded' } }
-        ).then(response => {
+      this.axios
+        .post("http://127.0.0.1:3000/users/batchdel", qs.stringify(selectId), {
+          Header: { "Content-Type": "application/x-www-form-urlencoded" }
+        })
+        .then(response => {
           if (response.data.rstCode === 1) {
             // 弹窗消息
             this.$message({
               type: "success",
-              message: response.data.msg,
+              message: response.data.msg
             });
-              this.getUserdata();
+            this.gituserpagedata();
           } else {
             this.$message({
               type: "error",
@@ -244,8 +288,7 @@ export default {
             });
           }
         });
-    },
-    
+    }
   }
 };
 </script>

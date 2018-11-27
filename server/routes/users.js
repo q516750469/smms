@@ -38,16 +38,30 @@ router.post("/adduser", (req, res) => {
 })
 
 // 账户列表路由
-router.post('/usermanage', (req, res) => {
+router.post('/usermanagebypage', (req, res) => {
+    let {currentPage,pageSize} =req.body;
     // 编写查询所有的sql语句
     let sqlStr = `select * from users order by cdate desc`
     connection.query(sqlStr, (err, data) => {
         if (err) {
             // 有错误抛出
-            throw err
+            throw err;
         } else {
-            //否侧发送数据给前端
-            res.send(data)
+            // 获取到数据条数
+            let totalpage = data.length;
+            
+            // 计算需要跳过的页数
+            let n = (currentPage-1)*pageSize;
+            // 编写sql语句
+            sqlStr += ` limit ${n}, ${pageSize}`;
+
+            connection.query(sqlStr, (err, data) => {
+                if(err){
+                    throw err
+                }else{
+                    res.send({"totalpage" : totalpage,"data":data})
+                }
+            })
         }
     })
 })
@@ -132,6 +146,44 @@ router.post('/batchdel', (req, res) => {
         }
     })
 })
+// 检查旧密码路由
+router.get('/checkoldpwd', (req, res) => {
+    // 接收前端传的旧密码
+    let {oldpassword} = req.query;
+    // 接受ID
+    let id = req.cookies.userid
+    // 编写sql语句
+    let sqlStr = `select * from users where id=${id}`
+
+    connection.query(sqlStr, (err, data) => {
+        if(oldpassword === data[0].password){
+            res.send({"rstCode":1,"msg":"原密码正确"})
+        }else{
+            res.send({"rstCode":0,"msg":"原密码错误"})
+        }
+    })
+})
+// 保存修改密码路由
+router.post('/savenewpwd', (req, res) => {
+    let {newpassword} = req.body;
+
+    let id = req.cookies.userid
+    // 编写sql语句
+    const sqlStr =`update users set password='${newpassword}' where id=${id}`;
+    connection.query(sqlStr, (err, data) => {
+        if (err) {
+            throw err
+        } else {
+            if (data.affectedRows > 0) {
+                res.clearCookie('userid');
+                res.clearCookie('username');
+                res.send({ "rstCode": 1, "msg": "密码修改成功" })
+            } else {
+                res.send({ "rstCode": 0, "msg": "密码修改失败" })
+            }
+        }
+    })
+})
 
 // 验证用户名密码路由
 router.post('/checklogin', (req, res) => {
@@ -168,6 +220,20 @@ router.get('/checkIsLogin', (req, res) => {
     }else{
         res.send({'islogin':false})
     }
+})
+
+// 退出登录路由
+router.get('/logout', (req, res) => {
+    // 清除cookie
+    res.clearCookie('userid');
+    res.clearCookie('username');
+    res.send({'rstCode':1,'msg':'退出登录成功！'})
+})
+
+// 获取用户名路由
+router.get('/getusername', (req, res) => {
+    let username = req.cookies.username;
+    res.send(username)
 })
 
 module.exports = router;

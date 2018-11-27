@@ -42,7 +42,6 @@ router.beforeEach((to, from, next) => {
       next()
     }
   })
-  next()
 })
 
 // 讲axios挂在vue原型上

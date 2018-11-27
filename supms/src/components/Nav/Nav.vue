@@ -7,6 +7,7 @@
             <el-submenu index="1">
                 <template slot="title"><i class="el-icon-location"></i>系统管理</template>
                 <el-menu-item index="/"><i class="el-icon-caret-right"></i>系统信息</el-menu-item>
+                <el-menu-item index="/personal"><i class="el-icon-caret-right"></i>个人中心</el-menu-item>
             </el-submenu>
             <el-submenu index="2">
                 <template slot="title"><i class="el-icon-location"></i>分类管理</template>

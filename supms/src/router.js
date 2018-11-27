@@ -32,6 +32,9 @@ import StockManage from '@/views/StockManage/StockManage.vue'
 // 添加库存
 import StockAdd from '@/views/StockAdd/StockAdd.vue'
 
+// 个人中心
+import Personal from '@/views/Personal/Personal.vue'
+
 // 注册路由
 Vue.use(Router)
 
@@ -108,10 +111,17 @@ export default new Router({
           path: '/stockmanage',
           component: StockManage
         },
+        // 库存添加
         {
           name: 'stockadd',
           path: '/stockadd',
           component: StockAdd
+        },
+        // 个人中心
+        {
+          name: 'personal',
+          path: '/personal',
+          component: Personal
         }
         
       ]
